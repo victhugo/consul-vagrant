@@ -1,6 +1,9 @@
 # OS-specific
 .DS_Store
 
+# Certs
+*/certs/*
+
 # Editor swapfiles
 .*.sw?
 *~

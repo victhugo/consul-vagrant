@@ -1,7 +1,7 @@
 data_dir = "/var/consul/config/"
 log_level = "DEBUG"
 
-datacenter = "sfo"
+datacenter = "@DATA_CENTER"
 
 ui = true
 server = true
@@ -11,8 +11,12 @@ bind_addr = "0.0.0.0"
 client_addr = "0.0.0.0"
 
 ports {
-  http = 8500
+  https = 8501
 }
+
+ca_file    = "/var/consul/config/ca.crt.pem"
+cert_file  = "/var/consul/config/server.crt.pem"
+key_file   = "/var/consul/config/server.key.pem"
 
 advertise_addr = "@HOST_IP"
 
