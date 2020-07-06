@@ -11,24 +11,23 @@ echo "SERVER_IP=$SERVER_IP"
 echo "DATA_CENTER=$DATA_CENTER"
 echo "======================================================"
 
-sudo mkdir -p /var/consul/config
-
-# Setup Consul Files
-if [ "$IS_SERVER" = "true" ]; then
-  # Server
-  sudo cp /vagrant/provision/consul/config/consul.hcl /var/consul/config/
-  sudo sed -i "s/@HOST_IP/$HOST_IP/g" /var/consul/config/consul.hcl
-
-else
-  # Client
-  sudo cp /vagrant/provision/consul/config/consul-client.hcl /var/consul/config/consul.hcl
-  sudo sed -i -e "s/@HOST_IP/$HOST_IP/g" -e "s/@IP_SERVER/$SERVER_IP/g" /var/consul/config/consul.hcl
+# Start service
+if [ "$IS_SERVER" = "false" ]; then
+  sudo docker run -d -p 8000:3000 -e REACT_APP_STORE_AVAILABLE='true' vhgodinez/react-docker-test
 fi
-sudo sed -i "s/@DATA_CENTER/$DATA_CENTER/g" /var/consul/config/consul.hcl
+
+sudo mkdir -p /var/consul/config
+sudo cp /vagrant/provision/consul/config/* /var/consul/config/
 sudo cp /vagrant/provision/certs/*.pem /var/consul/config/
 sudo cp /vagrant/provision/consul/system/consul.service /etc/systemd/system/consul.service
 sudo chmod -R +x /var/consul/config/
 sudo chmod -R +x /vagrant/provision/consul/system/
 
 sudo cp /vagrant/provision/scripts/env.sh /etc/environment
+
+sudo sed -i "s/@dc/$DATA_CENTER/" /etc/environment
+sudo sed -i "s/@is_server/$IS_SERVER/" /etc/environment
+sudo sed -i "s/@local_ip/$HOST_IP/" /etc/environment
+sudo sed -i "s/@list_ips/$SERVER_IP/" /etc/environment
+
 source /etc/environment

@@ -63,3 +63,12 @@ sudo mv consul /usr/bin/consul
 #     sudo chmod +x consul
 #     sudo mv consul /usr/bin/consul
 # fi
+
+# Download consul-template
+export CONSUL_TEMPLATE_VERSION=0.25.0
+curl -sL https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip -o consul-template.zip
+
+# Install consul-template
+sudo unzip consul-template.zip
+sudo chmod +x consul-template
+sudo mv consul-template /usr/bin/consul-template

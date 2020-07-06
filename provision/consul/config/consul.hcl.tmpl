@@ -1,0 +1,41 @@
+data_dir = "/var/consul/config/"
+log_level = "DEBUG"
+
+datacenter         = "{{ env "DATACENTER" }}"
+
+{{ if eq (env "IS_SERVER") "true" }}
+ui = true
+server = true
+bootstrap_expect = {{ env "CONSUL_SERVERS" }}
+{{ else }}
+advertise_addr_wan = "{{ env "HOST_IP" }}"
+retry_join = ["{{ env "HOST_LIST" }}"]
+{{end}}
+
+
+bind_addr   = "0.0.0.0"
+client_addr = "0.0.0.0"
+
+ports {
+  https = {{ if eq (env "CONSUL_SSL") "true" }}{{ env "CONSUL_PORT" }}{{ else }}-1{{end}}
+}
+
+advertise_addr     = "{{ env "HOST_IP" }}"
+
+acl = {
+  enabled        = true
+  default_policy = "deny"
+  down_policy    = "extend-cache"
+}
+
+{{ if eq (env "CONSUL_SSL") "true" }}
+ca_file    = "{{ env "CONSUL_CACERT" }}"
+cert_file  = "{{ env "CONSUL_CLIENT_CERT" }}"
+key_file   = "{{ env "CONSUL_CLIENT_KEY" }}"
+{{end}}
+
+/*
+encrypt = "{{ env "CONSUL_ENCRYPT_KEY" }}"
+encrypt_verify_incoming = true
+encrypt_verify_outgoing = true
+*/
