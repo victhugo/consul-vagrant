@@ -72,3 +72,9 @@ curl -sL https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSIO
 sudo unzip consul-template.zip
 sudo chmod +x consul-template
 sudo mv consul-template /usr/bin/consul-template
+
+export CONSUL_REPLICATE_VERSION=0.4.0
+curl -sL https://releases.hashicorp.com/consul-replicate/${CONSUL_REPLICATE_VERSION}/consul-replicate_${CONSUL_REPLICATE_VERSION}_linux_amd64.zip -o consul-replicate.zip
+sudo unzip consul-replicate.zip
+sudo chmod +x consul-replicate
+sudo mv consul-replicate /usr/bin/consul-replicate

@@ -3,6 +3,10 @@ export DATACENTER=@dc
 export HOST_LIST=@list_ips
 export IS_SERVER=@is_server
 
+export PRIMARY_DATACENTER=@primary
+export SECONDARY_DATACENTER=@secondary
+export SERVERS_IPS=@servers_ips
+
 export CONSUL_SERVERS=1
 export CONSUL_SCHEME=https
 export CONSUL_PORT=8501

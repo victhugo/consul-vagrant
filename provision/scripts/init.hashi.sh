@@ -30,4 +30,33 @@ sudo sed -i "s/@is_server/$IS_SERVER/" /etc/environment
 sudo sed -i "s/@local_ip/$HOST_IP/" /etc/environment
 sudo sed -i "s/@list_ips/$SERVER_IP/" /etc/environment
 
+sudo sed -i "s/@primary/sfo/" /etc/environment
+sudo sed -i "s/@secondary/nyc/" /etc/environment
+sudo sed -i "s/@servers_ips/'[\"172.20.20.11\",\"172.20.20.21\"]'/" /etc/environment
+
+. /etc/environment
 source /etc/environment
+
+sudo service consul stop
+
+if [ "$IS_SERVER" = "true" ]; then 
+
+  if [ "$DATA_CENTER" = "sfo" ]; then 
+    echo "Restarting Consul"
+    sudo service consul restart
+    sudo service consul status
+    
+    echo "Waiting for Consul leader to bootstrap ACL System"
+    sudo bash /vagrant/provision/consul/system/wait-consul-leader.sh
+
+    echo "Bootstraping ACL System"
+    sudo bash /vagrant/provision/consul/system/bootstrap.sh
+
+    sudo bash /vagrant/provision/scripts/common-services.sh
+
+  else
+    sudo bash /vagrant/provision/scripts/init.secondaries.sh
+  fi
+else
+  sudo service consul start
+fi
