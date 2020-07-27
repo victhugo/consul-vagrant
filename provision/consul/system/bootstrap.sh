@@ -18,6 +18,9 @@ echo "Storing Consul Root Token"
 echo "consul kv put cluster/consul/rootToken $rootToken"
 CONSUL_HTTP_TOKEN=$rootToken consul kv put cluster/consul/rootToken $rootToken
 
+# Feature toggle example
+CONSUL_HTTP_TOKEN=$rootToken consul kv put app/ui/store/disabled false
+
 # CONSUL_HTTP_TOKEN=$rootToken consul acl set-agent-token default $rootToken
 # CONSUL_HTTP_TOKEN=$rootToken consul acl set-agent-token replication $rootToken
 
