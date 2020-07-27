@@ -7,6 +7,6 @@ echo -e "\nexport CONSUL_HTTP_TOKEN=$CONSUL_HTTP_TOKEN\n" >> /etc/environment
 
 source /etc/environment
 
-exec consul-replicate -log-level trace -prefix "global@sfo" -prefix "new@sfo" >>/var/log/consul-replicate.log 2>&1 &
+exec consul-replicate -log-level trace -prefix "global@sfo" -prefix "app@sfo" -prefix "new@sfo" >>/var/log/consul-replicate.log 2>&1 &
 
 bash /vagrant/provision/scripts/common-services.sh
