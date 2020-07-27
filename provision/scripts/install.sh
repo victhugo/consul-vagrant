@@ -16,7 +16,7 @@ stable"
 
 sudo apt-get update
 sudo apt-get install -y \
-    getenvoy-envoy \
+    getenvoy-envoy=1.14.2.p0.g1a0363c-1p66.gfbeeb15 \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -50,7 +50,7 @@ END
 # if [ "$LOCAL_CONSUL_BINARY" != "true"]; then
 # echo "############## Downloading consul binary ########################"
 # Download consul
-export CONSUL_VERSION=1.7.3
+export CONSUL_VERSION=1.8.0
 curl -sL https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip -o consul.zip
 
 # Install consul
@@ -63,3 +63,41 @@ sudo mv consul /usr/bin/consul
 #     sudo chmod +x consul
 #     sudo mv consul /usr/bin/consul
 # fi
+
+# Download consul-template
+export CONSUL_TEMPLATE_VERSION=0.25.0
+curl -sL https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip -o consul-template.zip
+
+# Install consul-template
+sudo unzip consul-template.zip
+sudo chmod +x consul-template
+sudo mv consul-template /usr/bin/consul-template
+
+export CONSUL_REPLICATE_VERSION=0.4.0
+curl -sL https://releases.hashicorp.com/consul-replicate/${CONSUL_REPLICATE_VERSION}/consul-replicate_${CONSUL_REPLICATE_VERSION}_linux_amd64.zip -o consul-replicate.zip
+sudo unzip consul-replicate.zip
+sudo chmod +x consul-replicate
+sudo mv consul-replicate /usr/bin/consul-replicate
+
+# Install nomad
+export NOMAD_VERSION=0.11.2
+curl -sL https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip
+
+sudo unzip nomad.zip
+sudo chmod +x nomad
+sudo mv nomad /usr/bin/nomad
+
+# Download CNI(container network interface) Plugin for nomad
+curl -sL -L -o cni-plugins.tgz https://github.com/containernetworking/plugins/releases/download/v0.8.1/cni-plugins-linux-amd64-v0.8.1.tgz
+
+# Install CNI Plugin for nomad
+sudo mkdir -p /opt/cni/bin
+sudo tar -C /opt/cni/bin -xzf cni-plugins.tgz
+
+# Install vault
+export VAULT_VERSION=1.2.3
+curl -sL https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip -o vault.zip
+
+sudo unzip vault.zip
+sudo chmod +x vault
+sudo mv vault /usr/bin/vault

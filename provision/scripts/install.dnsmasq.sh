@@ -9,7 +9,8 @@
 set -e
 
 readonly DEFAULT_CONSUL_DOMAIN="consul"
-readonly DEFAULT_CONSUL_IP="172.20.20.11"
+readonly DEFAULT_CONSUL_IP="$HOST_IP"
+#readonly DEFAULT_CONSUL_IP="172.20.20.11"
 readonly DEFAULT_CONSUL_DNS_PORT=8600
 
 readonly DNS_MASQ_CONFIG_DIR="/etc/dnsmasq.d"
