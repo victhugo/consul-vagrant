@@ -47,6 +47,11 @@ InfluxDB open source time series database, purpose-built by InfluxData for monit
 
 Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alerts for the web when connected to supported data sources. It is expandable through a plug-in system. End users can create complex monitoring dashboards using interactive query builders.
 
+### Nomad
+Nomad is a flexible workload orchestrator to deploy and manage containers and non-containerized applications across on-prem and clouds at scale. It enables an organization to easily deploy and manage any containerized or legacy application using a single, unified workflow. Nomad can run a diverse workload of Docker, non-containerized, microservice, and batch applications.
+
+Nomad enables developers to use declarative infrastructure-as-code for deploying applications. Nomad uses bin packing to efficiently schedule jobs and optimize for resource utilization. Nomad is supported on macOS, Windows, and Linux.
+
 ## In this Project
 
 ### Architecture
